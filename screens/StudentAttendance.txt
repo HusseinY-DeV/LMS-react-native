@@ -1,0 +1,88 @@
+import React from 'react';
+import { Text, View, ScrollView , Button } from 'react-native';
+import { useEffect, useState } from 'react';
+import { globalStyles } from '../GlobalStyles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Picker} from '@react-native-picker/picker';
+
+
+
+const StudentAttendance = (props) => {
+    const [students, setStudents] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [data, setData] = useState([
+        { id:1,status:1},
+        { id:2,status:1},
+    ]);
+    const [render, setRender] = useState(false);
+    // const fillData = (id,val) => {
+    //     setData([...data, { id: id, status: val }]);
+    //     setRender(true);
+    // }
+    const handleUpdate = (i,val) => {
+        const neededData = { ...data[i] };
+        console.log(data[i]);
+        neededData.status = val;
+        setData(...data, { neededData });
+    }
+
+    useEffect(() => {
+        const getData = async () => {
+            const value = await AsyncStorage.getItem('id');
+            (async () => {
+                const response = await fetch(`http://localhost:8000/api/attendance/students/${parseInt(value)+1}`);
+                const data = await response.json();
+                setStudents([...data]);
+                setLoading(false);
+            })()
+        }
+        getData();
+    }, [render]);
+    return ( 
+        <View style={globalStyles.content}>
+            {loading ? ( 
+                    <Text style={globalStyles.text}>Loading...</Text>     
+            )
+                :
+                (<>
+                    <View style={globalStyles.students}>
+                        <Text style={{width:100}}>Student Id</Text>
+                        <Text style={{width:100}}>First Name</Text>
+                        <Text style={{width:100}}>Last Name</Text>
+                        <Text style={{width:50}}>Status</Text>
+                    </View>
+                    <ScrollView>
+                    { students.map((s, i) => {
+                        return (
+                            <View key={i} style={globalStyles.students}>
+                                {/* {fillData(s.id,1)} */}
+                                <Text style={{width:100 , marginVertical:10}}>{s.student_id}</Text>
+                                <Text style={{width:100, marginVertical:10}}>{s.first_name}</Text>
+                                <Text style={{width:100, marginVertical:10}}>{s.last_name}</Text>
+                                <Picker
+                                onValueChange={(val) => {
+                                        handleUpdate(i, val);
+                                    }}
+                                style={{ height: 25, width: 75, fontSize: 10 , marginVertical:10}}
+                                >
+                                    <Picker.Item label="Present" value='1' /> 
+                                    <Picker.Item label="Late" value='0' /> 
+                                    <Picker.Item label="Absent" value='-1' /> 
+                                    </Picker>
+                            </View>
+                        )
+                    })}
+                        <Button title="Submit Attendance"
+                            onPress={() => {
+                                console.log(data);
+                            }}
+                        
+                        />
+                    </ScrollView>
+               </> )    
+            }
+        </View>
+     );
+}
+ 
+export default StudentAttendance;
