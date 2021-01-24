@@ -1,13 +1,12 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, Touchable } from 'react-native';
 import { globalStyles } from '../GlobalStyles';
-
+import Header from './Header';
 
 const Logout = (props) => {
     return ( 
         <View style={globalStyles.container}>
-                        <Header navigation={props.navigation} name="Reports" />
-
+            <Header navigation={props.navigation} name="Logout" />
             <Text style={globalStyles.status}>Are you sure you want to logout ?</Text>
             
             <TouchableOpacity

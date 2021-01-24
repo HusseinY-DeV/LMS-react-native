@@ -11,7 +11,7 @@ const Reports = (props) => {
         <View style={globalStyles.container}>
             <Header navigation={props.navigation} name="Reports" />
             <View style={globalStyles.content}>
-                <Text>Hello World</Text>
+                <Text>Hello Reports</Text>
             </View>
         </View>
      );
