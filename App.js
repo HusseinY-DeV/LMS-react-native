@@ -1,5 +1,4 @@
 import React from 'react';
-import { StyleSheet, Text, View , Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -39,7 +38,7 @@ function AuthNavigator({setToken}) {
 
 
 export default function App() {
-  const [token, setToken] = React.useState(false);
+  const [token, setToken] = React.useState('');
   return (
     <NavigationContainer>
       {token ? <DrawerNavigator setToken={setToken} /> : <AuthNavigator setToken={setToken} />}

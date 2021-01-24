@@ -2,7 +2,6 @@ import React from 'react';
 import { Text, View, ScrollView , Button, StyleSheet } from 'react-native';
 import { useEffect, useState } from 'react';
 import { globalStyles } from '../GlobalStyles';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Picker} from '@react-native-picker/picker';
 
 
@@ -26,39 +25,30 @@ const StudentAttendance = (props) => {
     }
 
     const handlePress = async () => {
-        const value = await AsyncStorage.getItem('id');
+        
         const response = await fetch('http://192.168.1.73:8000/api/attendance/students',
             {
-                method: 'PATCH',
+                method: 'POST',
                 headers: {
                  'content-type' : 'application/json'    
                 },
                 body: JSON.stringify({
                     stds: ids,
                     statuses: statuses,
-                    id: value
+                    id: props.attId
                 })
             }
         );
-        const data = await response;
     }
 
     useEffect(() => {
-        const getData = async () => {
-            const value = await AsyncStorage.getItem('id');
             (async () => {
-                const response = await fetch(`http://192.168.1.73:8000/api/attendance/students/${parseInt(value)+1}`);
+                const response = await fetch(`http://192.168.1.73:8000/api/attendance/students/${props.attId}`);
                 const data = await response.json();
                 setStudents([...data]);
                 setLoading(false);
             })()
-        }
-        getData();
-        if (loading) {
-            console.log('false');
-        } else {
-            console.log('true');
-        }
+
     }, []);
     return ( 
         <View style={globalStyles.content}>
@@ -79,8 +69,6 @@ const StudentAttendance = (props) => {
                             <View key={i} style={globalStyles.students}>
                                 {fillStatuses(i, 1)}
                                 {fillIds(i,s.id)}
-                                {console.log(statuses)}
-                                {console.log(ids)}
                                 <Text style={{width:100 , marginVertical:10}}>{s.student_id}</Text>
                                 <Text style={{width:100, marginVertical:10}}>{s.first_name}</Text>
                                 <Text style={{width:100, marginVertical:10}}>{s.last_name}</Text>

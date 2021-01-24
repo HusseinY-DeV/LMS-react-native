@@ -43,7 +43,6 @@ export const globalStyles = StyleSheet.create({
         fontSize: 16,
         padding: 10,
         marginVertical: 15,
-        outline: 'none',
         backgroundColor: 'gray',
         borderRadius: 3,
         color: 'white'
@@ -51,7 +50,7 @@ export const globalStyles = StyleSheet.create({
     },
     btn: {
         width: 100,
-        marginHorizontal: 'auto',
+        marginHorizontal: 130,
         backgroundColor: '#3083FF',
         padding: 10,
         borderRadius: 4,
