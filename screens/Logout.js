@@ -6,6 +6,8 @@ import { globalStyles } from '../GlobalStyles';
 const Logout = (props) => {
     return ( 
         <View style={globalStyles.container}>
+                        <Header navigation={props.navigation} name="Reports" />
+
             <Text style={globalStyles.status}>Are you sure you want to logout ?</Text>
             
             <TouchableOpacity
