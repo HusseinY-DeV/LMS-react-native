@@ -96,7 +96,7 @@ const Attendance = ({navigation}) => {
                                         console.log(val);
                                         setId(val)
                                     }}
-                                style={{ height: 25, width: 100, fontSize: 16, marginHorizontal: 110, marginVertical: 10 }}
+                                style={{ height: 25, width: 100, fontSize: 16, marginHorizontal: 'auto', marginVertical: 10 }}
                             >
                                 {sections.map(sec => {
                                     return (
@@ -111,7 +111,7 @@ const Attendance = ({navigation}) => {
                                 
                                 style={{
                                     height: 25, width: 110, fontSize: 16,
-                                    marginHorizontal: 105, marginVertical: 10
+                                    marginHorizontal: 'auto', marginVertical: 10
                                 }}>
                                 <Picker.Item label={todayDate} value={todayDate} />
                                     {dates.map(d => {

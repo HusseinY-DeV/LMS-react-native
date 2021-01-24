@@ -50,7 +50,7 @@ export const globalStyles = StyleSheet.create({
     },
     btn: {
         width: 100,
-        marginHorizontal: 130,
+        marginHorizontal: 'auto',
         backgroundColor: '#3083FF',
         padding: 10,
         borderRadius: 4,

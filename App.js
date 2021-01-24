@@ -3,7 +3,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import Attendance from './screens/Attendance';
-import Reports from './screens/Reports';
 import Login from './screens/Login';
 import Logout from './screens/Logout';
 
@@ -16,7 +15,7 @@ function DrawerNavigator({setToken}) {
   return (
       <Drawer.Navigator>
         <Drawer.Screen component={Attendance} name="Attendance"/>
-        <Drawer.Screen component={Reports} name="Reports"/>
+        {/* <Drawer.Screen component={Reports} name="Reports"/> */}
         <Drawer.Screen name="Logout">
            {props => <Logout {...props} setToken={setToken} />}
         </Drawer.Screen>
